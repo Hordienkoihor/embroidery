@@ -1,0 +1,19 @@
+.anchor {
+    -fx-background-color: #E8EDF2;
+    -fx-background-radius: 12px;
+}
+
+.title-bar {
+    -fx-background-color: #2C3947;
+    -fx-background-radius: 12px 12px 0 0;
+}
+
+.title-bar .button {
+    -fx-background-color: transparent;
+}
+
+#title {
+    -fx-font-family: "SF Pro Display", Serif;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+}

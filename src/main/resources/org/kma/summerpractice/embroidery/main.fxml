@@ -1,66 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="anchor" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kma.summerpractice.embroidery.MainController">
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+            prefWidth="900.0" styleClass="anchor" stylesheets="@style/style.css" xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kma.summerpractice.embroidery.MainController">
     <top>
         <StackPane prefHeight="28.0" styleClass="title-bar" BorderPane.alignment="CENTER">
             <children>
-                <Label id="title" fx:id="windowTitle" text="Label" />
-                <HBox StackPane.alignment="CENTER_LEFT">
+                <Label id="title" fx:id="windowTitle" text="Label"/>
+                <HBox onMouseDragged="#dragged" onMousePressed="#pressed" StackPane.alignment="CENTER_LEFT">
                     <children>
                         <Button fx:id="titleBarClose" mnemonicParsing="false" onAction="#close" styleClass="title-bar">
                             <graphic>
                                 <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@img/2-close-2-hover.png" />
+                                        <Image url="@img/2-close-2-hover.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="titleBarMinimize" mnemonicParsing="false" onAction="#minimize" styleClass="title-bar">
+                        <Button fx:id="titleBarMinimize" mnemonicParsing="false" onAction="#minimize"
+                                styleClass="title-bar">
                             <graphic>
                                 <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@img/2-minimize-2-hover.png" />
+                                        <Image url="@img/2-minimize-2-hover.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
-                     <HBox.margin>
-                        <Insets left="-5.0" />
-                     </HBox.margin>
+                            <HBox.margin>
+                                <Insets left="-5.0"/>
+                            </HBox.margin>
                         </Button>
-                        <Button fx:id="titleBarMaximise" mnemonicParsing="false" onAction="#maximize" styleClass="title-bar">
+                        <Button fx:id="titleBarMaximise" mnemonicParsing="false" onAction="#maximize"
+                                styleClass="title-bar">
                             <graphic>
                                 <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@img/3-maximize-2-hover.png" />
+                                        <Image url="@img/3-maximize-2-hover.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
-                     <HBox.margin>
-                        <Insets left="-5.0" />
-                     </HBox.margin>
+                            <HBox.margin>
+                                <Insets left="-5.0"/>
+                            </HBox.margin>
                         </Button>
                     </children>
                     <opaqueInsets>
-                        <Insets />
+                        <Insets/>
                     </opaqueInsets>
                     <padding>
-                        <Insets top="2.0" />
+                        <Insets top="2.0"/>
                     </padding>
-               <StackPane.margin>
-                  <Insets left="2.0" />
-               </StackPane.margin>
+                    <StackPane.margin>
+                        <Insets left="2.0"/>
+                    </StackPane.margin>
                 </HBox>
             </children>
         </StackPane>
     </top>
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0" styleClass="side-bar"
+              BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="horizontalSymmetryBtn" mnemonicParsing="false" text="Горизонтальна Симетрія" wrapText="true" maxWidth="130">
+                    <styleClass>
+                        <String fx:value="btn"/>
+                        <String fx:value="btn-primary"/>
+                    </styleClass>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="verticalSymmetryBtn" mnemonicParsing="false" text="Вертикальна Симетрія" wrapText="true" maxWidth="130">
+                    <styleClass>
+                        <String fx:value="btn"/>
+                        <String fx:value="btn-primary"/>
+                    </styleClass>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="repeatBtn" mnemonicParsing="false" text="Дублювання">
+                    <styleClass>
+                        <String fx:value="btn"/>
+                        <String fx:value="btn-primary"/>
+                    </styleClass>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </Button>
+                <ColorPicker fx:id="colorPicker" onAction="#choseColor">
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </ColorPicker>
+            </children>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+        </VBox>
+    </left>
+    <center>
+        <Canvas fx:id="drawingCanvas" onMousePressed="#draw" onMouseDragged="#draw" height="400.0" styleClass="canvas" width="600.0" BorderPane.alignment="CENTER"/>
+    </center>
 </BorderPane>

@@ -5,6 +5,7 @@ module org.kma.summerpractice.embroidery {
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.desktop;
 
     opens org.kma.summerpractice.embroidery to javafx.fxml;
     exports org.kma.summerpractice.embroidery;

@@ -70,7 +70,7 @@
     <left>
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0" styleClass="side-bar" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="horizontalSymmetryBtn" maxWidth="130" mnemonicParsing="false" text="Горизонтальна Симетрія" wrapText="true">
+                <Button fx:id="horizontalSymmetryBtn" maxWidth="130" mnemonicParsing="false" onMousePressed="#switchHorizontalSymmetry" text="Горизонтальна Симетрія" wrapText="true">
                     <styleClass>
                         <String fx:value="btn" />
                         <String fx:value="btn-primary" />
@@ -79,7 +79,7 @@
                         <Insets top="20.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="verticalSymmetryBtn" maxWidth="130" mnemonicParsing="false" text="Вертикальна Симетрія" wrapText="true">
+                <Button fx:id="verticalSymmetryBtn" maxWidth="130" mnemonicParsing="false" onMousePressed="#switchVerticalSymmetry" text="Вертикальна Симетрія" wrapText="true">
                     <styleClass>
                         <String fx:value="btn" />
                         <String fx:value="btn-primary" />
@@ -88,7 +88,7 @@
                         <Insets top="20.0" />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="repeatBtn" mnemonicParsing="false" text="Дублювання">
+                <Button fx:id="repeatBtn" mnemonicParsing="false" onMousePressed="#switchRepeat" text="Дублювання">
                     <styleClass>
                         <String fx:value="btn" />
                         <String fx:value="btn-primary" />
@@ -97,11 +97,20 @@
                         <Insets top="20.0" />
                     </VBox.margin>
                 </Button>
-                <ColorPicker fx:id="colorPicker" onAction="#choseColor" maxWidth="130" >
+                <ColorPicker fx:id="colorPicker" maxWidth="130" onAction="#choseColor">
                     <VBox.margin>
                         <Insets top="20.0" />
                     </VBox.margin>
                 </ColorPicker>
+            <Button fx:id="flush" onMousePressed="#flush" mnemonicParsing="false" text="Очистити">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-success" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
             </children>
             <opaqueInsets>
                 <Insets />

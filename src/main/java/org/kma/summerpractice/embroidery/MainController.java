@@ -1,10 +1,10 @@
 package org.kma.summerpractice.embroidery;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -13,8 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-import javafx.scene.canvas.Canvas;
 
 public class MainController {
     @FXML
@@ -40,7 +38,18 @@ public class MainController {
 
     @FXML
     private ColorPicker colorPicker;
-    private Color currentColor = Color.BLACK;
+    private Color currentColor = Color.WHITE;
+
+    @FXML
+    private Button horizontalSymmetryBtn;
+    private boolean horizontalSymmetry = false;
+
+    @FXML
+    private Button verticalSymmetryBtn;
+    private boolean verticalSymmetry = false;
+
+    @FXML
+    private Button repeatBtn;
 
     private double currentX, currentY;
 
@@ -82,13 +91,86 @@ public class MainController {
 
         if (col >= 0 && col < cols && row >= 0 && row < rows) {
             colors[row][col] = currentColor;
+
+            if (horizontalSymmetry) {
+                int hCol = cols - 1 - col;
+                int hRow = row;
+
+                if (hCol >= 0 && hCol < cols && hRow >= 0 && hRow < rows) {
+                    colors[hRow][hCol] = currentColor;
+                }
+            }
+
+            if (verticalSymmetry) {
+                int vCol = col;
+                int vRow = rows - 1 - row;
+
+                if (vCol >= 0 && vCol < cols && vRow >= 0 && vRow < rows) {
+                    colors[vRow][vCol] = currentColor;
+                }
+            }
+
+            if (horizontalSymmetry && verticalSymmetry) {
+                int hRow = rows - 1 - row;
+                int vCol = cols - 1 - col;
+
+                if (hRow >= 0 && hRow < rows && vCol >= 0 && vCol < cols) {
+                    colors[hRow][vCol] = currentColor;
+                }
+            }
+
             drawGrid();
         }
+
+
     }
 
     @FXML
     private void choseColor(ActionEvent event) {
         currentColor = colorPicker.getValue();
+    }
+
+    @FXML
+    private void switchHorizontalSymmetry() {
+        horizontalSymmetry = !horizontalSymmetry;
+        if (horizontalSymmetry) {
+            horizontalSymmetryBtn.setStyle("-fx-background-color: red");
+        } else {
+            horizontalSymmetryBtn.setStyle(null);
+        }
+    }
+
+    @FXML
+    private void switchVerticalSymmetry() {
+        verticalSymmetry = !verticalSymmetry;
+        if (verticalSymmetry) {
+            verticalSymmetryBtn.setStyle("-fx-background-color: red");
+        } else {
+            verticalSymmetryBtn.setStyle(null);
+        }
+    }
+
+    @FXML
+    private void switchRepeat() {
+        horizontalSymmetry = !horizontalSymmetry;
+        verticalSymmetry = !verticalSymmetry;
+
+        if (horizontalSymmetry && verticalSymmetry) {
+            repeatBtn.setStyle("-fx-background-color: red");
+        } else {
+            repeatBtn.setStyle(null);
+        }
+    }
+
+    @FXML
+    private void flush() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                colors[i][j] = Color.WHITE;
+            }
+        }
+
+        drawGrid();
     }
 
 

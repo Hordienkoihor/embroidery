@@ -135,8 +135,10 @@ public class MainController {
         horizontalSymmetry = !horizontalSymmetry;
         if (horizontalSymmetry) {
             horizontalSymmetryBtn.setStyle("-fx-background-color: red");
+            disableButton(repeatBtn);
         } else {
             horizontalSymmetryBtn.setStyle(null);
+            enableButton(repeatBtn);
         }
     }
 
@@ -145,8 +147,10 @@ public class MainController {
         verticalSymmetry = !verticalSymmetry;
         if (verticalSymmetry) {
             verticalSymmetryBtn.setStyle("-fx-background-color: red");
+            disableButton(repeatBtn);
         } else {
             verticalSymmetryBtn.setStyle(null);
+            enableButton(repeatBtn);
         }
     }
 
@@ -157,9 +161,23 @@ public class MainController {
 
         if (horizontalSymmetry && verticalSymmetry) {
             repeatBtn.setStyle("-fx-background-color: red");
+            disableButton(horizontalSymmetryBtn);
+            disableButton(verticalSymmetryBtn);
         } else {
             repeatBtn.setStyle(null);
+            enableButton(horizontalSymmetryBtn);
+            enableButton(verticalSymmetryBtn);
         }
+    }
+
+    private void disableButton(Button button) {
+        button.setDisable(true);
+        button.setStyle("-fx-opacity: 0.3");
+    }
+
+    private void enableButton(Button button) {
+        button.setDisable(false);
+        button.setStyle("-fx-opacity: 1");
     }
 
     @FXML
